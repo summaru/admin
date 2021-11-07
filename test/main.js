@@ -6,15 +6,13 @@ const l = s;
 const app = express();
 
 
-const router = express.Router();
-
-l.useMiddleware(app);
-l.mappingApiRouter(router);
-app.use("/d",router);
+l.initMethod.initDB();
+l.initMethod.middleware(app);
 
 
-app.listen(300,()=> {
+let router = l.createApiRouter();
+app.use("/api",router);
+
+app.listen(8080,()=> {
 
 });
-
-
