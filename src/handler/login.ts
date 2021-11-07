@@ -16,8 +16,17 @@ export const login = (req : express.Request,res : express.Response) => {
     }
 
     res.cookie("session",info.SessionKey,{
-        maxAge : 10000
+        maxAge : 10000,
+        path : "/"
     });
 
+    res.status(200).send("ok"); 
+}
+
+export const chkSession = (req : express.Request,res : express.Response) => {
+    if (info.SessionKey == req.cookies.session) {
+        res.status(400).send("not match session");
+        return;
+    }
     res.status(200).send("ok"); 
 }

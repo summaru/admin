@@ -21,7 +21,8 @@ class l{
     public mappingApiRouter = (router : express.Router) => {
         if (!this.isUseMiddleware)
             throw "call useMiddleware method,when before call mappingApiRouter";
-        router.use("/login",login);
+        router.use("/login",m.publicHandler.adminLogin);
+        router.use("/chk_session",m.publicHandler.sessionCheck);
         
         router.use("/get_menu",m.publicHandler.getList);
         router.use("/delete_item",m.privateHandler.delete);
