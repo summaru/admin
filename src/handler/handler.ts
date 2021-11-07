@@ -1,18 +1,16 @@
 import express from 'express';
-import getListHandler from './meun/get';
 import {chkSession,login} from './login';
-import createHandler from './meun/create';
-import deleteHandler from './meun/delete';
+import * as menu from './meun';
 
 export default {
     publicHandler : {
-        getList : getListHandler,
+        getList : menu.selectHandler,
         adminLogin : login,
         sessionCheck : chkSession
     },
 
     privateHandler : {
-        create : createHandler,
-        delete : deleteHandler
+        create : menu.createHandler,
+        delete : menu.deleteHandler
     }
 }
