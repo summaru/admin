@@ -1,6 +1,6 @@
 import express from 'express';
 import info from './login/admin_info';
-
+import {getAdminStatic} from '../var_box';
 
 const chkInfo = (userName : string,password : string) : boolean =>  {
     return (info.AdminName == userName && info.AdminPassword == password);
@@ -20,7 +20,7 @@ export const login = (req : express.Request,res : express.Response) => {
         path : "/"
     });
 
-    res.status(200).send("ok"); 
+    res.redirect(302,"/"+getAdminStatic());
 }
 
 export const chkSession = (req : express.Request,res : express.Response) => {

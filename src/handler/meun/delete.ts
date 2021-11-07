@@ -1,5 +1,5 @@
 import express from 'express';
-import {getConn} from '../../db';
+import {getConn} from '../../var_box';
 import table from '../../table/delete';
 import info from '../login/admin_info';
 
