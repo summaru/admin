@@ -1,15 +1,16 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import * as init from './var_box';
 import m from './handler/handler';
 
 
 interface InitList {
     db : boolean
-    middleware : boolean
+    adminPage : boolean
 }
 
 class l{
-    private list : InitList =  {db :false, middleware : false};
+    private list : InitList =  {db :false,adminPage : false};
     public initDB = (host : string,port : number,
         userName : string,password : string,dbName : string) => {
         init.initDB(host,port,userName,password,dbName).catch((reason)=>{
@@ -19,23 +20,28 @@ class l{
         });
     }
 
-    public useMiddleware = (app : express.Express) => {
-        app.use(express.json());
-        app.use(express.urlencoded());
 
-        this.list.middleware = true;
+
+    public initAdminPagePath =(path : string) => {
+        init.initAdminFolder(path)
+        this.list.adminPage =true;
     }
 
     public createApiRouter = () => {
-        if(this.list.db == false && this.list.middleware == false)
+        if(this.list.db == false && this.list.adminPage == false)
             throw "not init this module";
         let router = express.Router();
-        router.use("/login",m.publicHandler.adminLogin);
-        router.use("/chk_session",m.publicHandler.sessionCheck);
+        router.use(express.json());
+        router.use(express.urlencoded());
+        router.use(cookieParser());
+
+
+        router.post("/login",m.publicHandler.adminLogin);
+        router.get("/chk_session",m.publicHandler.sessionCheck);
         
-        router.use("/get_menu",m.publicHandler.getList);
-        router.use("/delete_item",m.privateHandler.delete);
-        router.use("/create_item",m.privateHandler.create);
+        router.get("/get_menu",m.publicHandler.getList);
+        router.post("/delete_item",m.privateHandler.delete);
+        router.post("/create_item",m.privateHandler.create);
         return router;
     }
 
@@ -47,7 +53,7 @@ const api = new l();
 
 export const initMethod = {
     initDB : api.initDB,
-    middleware : api.useMiddleware,
+    initAdminStaticPath : api.initAdminPagePath
 }
 
 export const createApiRouter = api.createApiRouter;

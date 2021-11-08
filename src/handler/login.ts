@@ -24,9 +24,14 @@ export const login = (req : express.Request,res : express.Response) => {
 }
 
 export const chkSession = (req : express.Request,res : express.Response) => {
-    if (info.SessionKey == req.cookies.session) {
+    if (req.cookies == undefined) {
+        res.status(400).send("no cookies");
+        return;
+    }
+    if (info.SessionKey != req.cookies.session) {
         res.status(400).send("not match session");
         return;
     }
+    
     res.status(200).send("ok"); 
 }
