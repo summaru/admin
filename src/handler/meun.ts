@@ -37,7 +37,11 @@ export const createHandler =  (req : express.Request,res : express.Response) => 
     }
 
 
-    let d : {name : string,price : number,data : Uint8Array} = req.body;
+    let d : {name : string,price : number,data : Uint8Array} = {
+        name : req.body.name,
+        price : req.body.price,
+        data : req.body.data
+    };
     create(getConn(),d).then(()=> {
         res.status(200).send("");
     })

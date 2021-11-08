@@ -1,8 +1,10 @@
 import mysql2 from 'mysql2/promise';
-
+import init_db from './table/init';
 
 let conn : mysql2.Connection;
 let staticPath : string;
+
+
 
 
 export async function initDB(host : string,port : number,
@@ -14,6 +16,9 @@ export async function initDB(host : string,port : number,
         password : password,
         database : dbName
     });
+    init_db(conn).catch((res) => {
+        console.error(res);
+    })
 }
 
 export function initAdminFolder(path : string) {

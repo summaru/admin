@@ -1,6 +1,6 @@
 import mysql2 from 'mysql2/promise';
 
-const q = `CREATE TABLE IF NOT EXISTS 'menu' (
+const q = `CREATE TABLE IF NOT EXISTS menu (
     name VARCHAR(48) PRIMARY KEY,
     price INTEGER,
     img_data LONGBLOB);`;
