@@ -1,5 +1,6 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 import * as init from './var_box';
 import m from './handler/handler';
 
@@ -32,7 +33,7 @@ class l{
             throw "not init this module";
         let router = express.Router();
         router.use(express.json());
-        router.use(express.urlencoded());
+        router.use(bodyParser.urlencoded({extended: false}));
         router.use(cookieParser());
 
 

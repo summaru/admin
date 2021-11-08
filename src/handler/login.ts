@@ -7,20 +7,20 @@ const chkInfo = (userName : string,password : string) : boolean =>  {
 }
 
 export const login = (req : express.Request,res : express.Response) => {
+    
     let userName : string = req.body.userName;
     let password : string = req.body.password;
-
-    if (chkInfo(userName,password)) {
+    if (!chkInfo(userName,password)) {
         res.status(400).send("로그인 실패");
         return;
     }
-
     res.cookie("session",info.SessionKey,{
         maxAge : 10000,
         path : "/"
     });
 
-    res.redirect(302,"/"+getAdminStatic());
+    res.redirect(302,getAdminStatic());
+
 }
 
 export const chkSession = (req : express.Request,res : express.Response) => {
