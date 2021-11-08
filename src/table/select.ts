@@ -1,7 +1,7 @@
 import mysql2, { FieldPacket, RowDataPacket } from 'mysql2/promise';
 import Item from './item';
 
-const q = "SELECT name,price,img_data FROM menu;";
+const q = "SELECT name,price,image_type,img_data FROM menu;";
 
 
 

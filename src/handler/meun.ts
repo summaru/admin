@@ -37,15 +37,17 @@ export const createHandler =  (req : express.Request,res : express.Response) => 
     }
 
 
-    let d : {name : string,price : number,data : Uint8Array} = {
+    let d : {name : string,price : number,image_type : string,data : Uint8Array} = {
         name : req.body.name,
         price : req.body.price,
+        image_type : req.body.imageType,
         data : req.body.data
     };
     create(getConn(),d).then(()=> {
         res.status(200).send("");
     })
     .catch((reason)=> {
+        console.log("create item error =>" + reason);
         res.status(500).send(reason);
     });
 }
