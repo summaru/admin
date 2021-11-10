@@ -4,9 +4,11 @@ import express from 'express';
 
 
 let app = express();
+app.use("/",express.static("./admin_page"));
+
 
 lib.initMethod.initDB("localhost",3306,"cp","hello","test");
-lib.initMethod.initAdminStaticPath("/admin_page");
+lib.initMethod.initAdminStaticPath("/admin.html");
 
 
 

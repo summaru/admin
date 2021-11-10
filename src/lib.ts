@@ -1,6 +1,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import file from 'express-fileupload';
 import * as init from './var_box';
 import m from './handler/handler';
 
@@ -34,6 +35,7 @@ class l{
         let router = express.Router();
         router.use(express.json());
         router.use(bodyParser.urlencoded({extended: false}));
+        router.use(file());
         router.use(cookieParser());
 
 
